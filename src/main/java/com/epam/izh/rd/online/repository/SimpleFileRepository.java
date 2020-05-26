@@ -1,5 +1,11 @@
 package com.epam.izh.rd.online.repository;
 
+import javafx.scene.shape.Path;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class SimpleFileRepository implements FileRepository {
 
     /**
@@ -10,6 +16,8 @@ public class SimpleFileRepository implements FileRepository {
      */
     @Override
     public long countFilesInDirectory(String path) {
+        String parentPath = new File(path).getParent();
+        File[] myParentPathFile = new File(parentPath).listFiles();
         return 0;
     }
 

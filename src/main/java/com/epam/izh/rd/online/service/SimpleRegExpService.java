@@ -1,5 +1,11 @@
 package com.epam.izh.rd.online.service;
 
+import com.sun.corba.se.impl.encoding.BufferQueue;
+
+import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SimpleRegExpService implements RegExpService {
 
     /**
@@ -11,6 +17,12 @@ public class SimpleRegExpService implements RegExpService {
      */
     @Override
     public String maskSensitiveData() {
+        File file = new File("C:/EPAM/java-data-handling-template/src/main/resources/sensitive_data.txt");
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            return bufferedReader.readLine().replaceAll("(\\d{4}) \\d{4} \\d{4} (\\d{4})", "$1 **** **** $2");
+        } catch (IOException ioexception) {
+            ioexception.printStackTrace();
+        }
         return null;
     }
 
@@ -22,6 +34,12 @@ public class SimpleRegExpService implements RegExpService {
      */
     @Override
     public String replacePlaceholders(double paymentAmount, double balance) {
+        File file = new File("C:/EPAM/java-data-handling-template/src/main/resources/sensitive_data.txt");
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            bufferedReader.readLine();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
         return null;
     }
 }
