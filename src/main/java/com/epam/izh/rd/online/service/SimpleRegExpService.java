@@ -21,7 +21,7 @@ public class SimpleRegExpService implements RegExpService {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             return bufferedReader.readLine().replaceAll("(\\d{4}) \\d{4} \\d{4} (\\d{4})", "$1 **** **** $2");
         } catch (IOException ioexception) {
-            ioexception.printStackTrace();
+            System.out.println("Ошибка ввода/вывода");
         }
         return null;
     }
@@ -35,10 +35,14 @@ public class SimpleRegExpService implements RegExpService {
     @Override
     public String replacePlaceholders(double paymentAmount, double balance) {
         File file = new File("C:/EPAM/java-data-handling-template/src/main/resources/sensitive_data.txt");
+        Integer paymentAmountD = (int) paymentAmount;
+        Integer balanceD = (int) balance;
+
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            bufferedReader.readLine();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+            StringBuilder sb = new StringBuilder(bufferedReader.readLine().replaceFirst("\\$\\{.*?}", paymentAmountD.toString()));
+            return sb.toString().replaceFirst("\\$\\{.*?}", balanceD.toString());
+        } catch (IOException e) {
+            System.out.println("Ошибка ввода/вывода");
         }
         return null;
     }
